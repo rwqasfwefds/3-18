@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .item{
+            padding: 4px 8px;
+            transition: background-color 0.4s; 
+        }
+        .is-active{
+            background-color: #ffeaea;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click = 'isActive = !isActive'>isActive 변경하기</button>
+        <!-- 미리 css 먹여주고 true인지 false인지 만 넘기면 가넝 -->
+        <p v-bind:class = "{child : isChild, 'is-active' : isActive}" class="item">
+            동적 클래스
+        </p>
+        <p v-bind:style = "{color : textColor, backgroundColor : bgColor}" class="item">
+            동적 스타일
+        </p>
+    </div>
+
+    <script>
+        new Vue({
+            el : '#app',
+            data : {
+                isChild : true,
+                isActive : true,
+                textColor : 'red',
+                bgColor : 'lightgray'
+            }
+        });
+    </script>
+    
+</body>
+</html>

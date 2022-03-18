@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <child-component v-bind:propsdata = 'message'></child-component>
+
+        <!-- 아래에 또 다른 자식 컴포넌트를 생성 -->
+        <str v-bind:text = 'talk'></str>
+    </div>
+
+    <script>
+        Vue.component('child-component', {
+            props : ['propsdata'],
+            template : 
+            /* html */
+            `
+            <p>{{propsdata}}</p>
+            `
+        });
+
+        // 또 다른 자식 컴포넌트를 추가
+
+        Vue.component('str', {
+            props : ['text'],
+            template : 
+            /* html */
+            `
+            <p>{{text}}</p>
+            `
+        })
+
+
+        let app = new Vue({
+            el : '#app',
+            data : {
+                message : 'Hello Vue! passed from parent Component',
+
+                // 또 다른 변수를 생성 : 'Another Hello Vue!'
+                talk : 'Another Hello Vue!'
+            }
+        });
+    </script>
+    
+</body>
+</html>

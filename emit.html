@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #app{
+            background-color: blue;
+            padding: 6px;
+            color: white;
+        }
+        .box{
+            background-color: teal;
+            margin-top: 10px;
+        }
+        .box button{
+            margin: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        {{name}}
+        <!-- 신호를 보내는건 다 이벤트임 -->
+        <child-component v-on:sendclick = 'receivemessage'></child-component>
+    </div>
+
+    <script>
+        // 애 새끼
+        Vue.component('child-component', {
+            /* html */
+            template : 
+            `
+            <div class = 'box'>
+                <button @click = 'send()'>부모 컨포넌트로 데이터 전달</button>
+            </div>
+            `,
+            methods : {
+                send : function(){
+                    // $emit = 부모 쉨 한테 이벤트 신호를 보내라
+                    // 새로운 이벤트 명(속성)을 만듦
+                    // 부모한테 값을 전달 할 이벤트명을 줌
+                    this.$emit('sendclick')
+                }
+            }
+        });
+
+        // 부모 컴포넌트라고 생각
+        new Vue({
+            el : '#app',
+            data : {
+                name : '$emit을 이용한 데이터 전달'
+            },
+            methods : {
+                // 매개변수에 자식이 보낸 this.message가 들어 옴
+                receivemessage(){
+                    this.name = '자식 컴포넌트에서 신호 보냄';
+                }
+            }
+        });
+    </script>
+    
+</body>
+</html>
